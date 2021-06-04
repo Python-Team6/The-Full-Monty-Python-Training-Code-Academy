@@ -1,0 +1,5 @@
+# for development and testing
+pytest == 6.1.2
+pytest-cov == 2.11.1
+pylint == 2.5.3
+beautifulsoup4 == 4.9.3
