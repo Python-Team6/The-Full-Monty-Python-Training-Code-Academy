@@ -1,3 +1,3 @@
-# Web scrapper blueprint
+# Python Web scrapper 
 
-# Have fun!
+Simple, python web scraper that saves the output data in json file.
