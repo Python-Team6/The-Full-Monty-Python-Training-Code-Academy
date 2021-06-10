@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 import argparse
-import module  # This will not link correctly if you use from imports
+
+import module
 
 
 def some_helper(argument):
@@ -18,25 +19,33 @@ def some_helper(argument):
 
 def parse_args():  # pragma: no cover
     """Parse the input args."""
+
     parser = argparse.ArgumentParser(
-        description="Blueprint executable. <To be updated by developer>"
+        description="Web scraper for wordpress based web sites."
     )
+
+    parser.add_argument('-link',  type=str, required=True,
+                        help='an link for scraping')
+
     return parser.parse_args()
 
 
 def main(args):  # pragma: no cover
     """Main."""
     print(f"args: {args}")
-    print(f"example function result: {module.example_function()}")
-
-    example_inst = module.Example()
+    # print(f"RequestLink function result: {module.requestLink(args.link)}")
+    scraper = module.WebScraper(args)
+    links = module.requestLink(args.link)
+    scraper.fillData(links)
+    scraper.output()
     print(
-        f"example class result:"
-        f"\n - instance: {example_inst}"
-        f"\n - member:   {example_inst.example}"
+        f"WebScraper class result:"
+        f"\n - instance: {scraper}"
+        f"\n - member:   {scraper.scraper}"
     )
 
 
 if __name__ == "__main__":
     args = parse_args()
+    some_helper(args)
     main(args)
