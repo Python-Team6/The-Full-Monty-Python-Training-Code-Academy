@@ -77,5 +77,5 @@ class WebScraper:
         Uses json to convert the list to json file.
         """
         with open('./data/articles.json', 'w', encoding='utf-8') as file:
-            json.dump(self.articlesList, file, ensure_ascii=False)
+            json.dump(self.articlesList, file, ensure_ascii=False, indent=4)
         print("Saved to json file.")
