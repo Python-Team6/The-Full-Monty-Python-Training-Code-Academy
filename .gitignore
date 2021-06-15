@@ -133,3 +133,6 @@ dmypy.json
 
 # Coverage
 coverage/
+
+# Data folder
+data/articles.json

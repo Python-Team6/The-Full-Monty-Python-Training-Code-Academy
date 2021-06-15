@@ -1,63 +1,52 @@
 import pytest
-import json
 
-from module import WebScraper as WebScraper
-from module import requestLink as RequestLink
-from main import some_helper
+from module import *
+from module import request_link as RequestLink
 from bs4 import BeautifulSoup
 
-
-@pytest.fixture
-def web_scraper():
-    url = 'https://igicheva.wordpress.com/all-posts/'
-    scraper = WebScraper(url)
-    scraper.url = url
-    return scraper
+url = 'https://igicheva.wordpress.com/all-posts/'
+scraper = WebScraper(url)
+links_list = RequestLink('https://igicheva.wordpress.com/all-posts/')[0:2]
 
 
-def test_requestLink(web_scraper, links_list_fixture):
-    test_links = links_list_fixture
-    test_articles = RequestLink(web_scraper.url)
-    assert test_articles[0:2] == test_links
+def test_request_link():
+    test_articles = RequestLink(scraper.url)
+    assert test_articles[0:2] == links_list
 
 
-def test_requestContent(web_scraper, links_list_fixture):
-    test_soup = web_scraper.requestContent(links_list_fixture[0])
-    assert isinstance(type(test_soup), type(BeautifulSoup)) == True
+def test_request_content():
+    test_soup = scraper.request_content(links_list[0])
+    assert isinstance(type(test_soup), type(BeautifulSoup))
     assert test_soup is not None
 
 
-def test_FillData(web_scraper):
-    test_link = web_scraper.fillData(RequestLink(web_scraper.url))
-    test_articleList = []
-    test_articleList.append(test_link)
-    assert test_articleList is not None
+def test_fill_data():
+    test_link = scraper.fill_data(RequestLink(scraper.url))
+    test_article_list = [test_link]
+    assert test_article_list is not None
 
 
-def test_parse(web_scraper, links_list_fixture):
-    test_link = web_scraper.requestContent(links_list_fixture[0])
-    test_article = web_scraper.parse(test_link)
+def test_make_suitable_for_json():
+    test_link = scraper.request_content(links_list[0])
+    test_article = scraper.make_suitable_for_json(test_link)
 
     with open('data/test_data.json', 'r', encoding='utf-8') as file:
         test_output = json.load(file)
 
     assert test_article == test_output
-    assert isinstance(type(test_article), type(dict)) == True
+    assert isinstance(type(test_article), type(dict))
 
 
-def test_output(web_scraper):
-    assert web_scraper.output() is not FileNotFoundError
+def test_write_to_json():
+    assert scraper.write_to_json() is not FileNotFoundError
 
 
-def test_webScraperClass(web_scraper):
-    assert isinstance(web_scraper, WebScraper)
-    assert web_scraper.scraper == WebScraper
+def test_webScraperClass():
+    assert isinstance(scraper, WebScraper) == True
 
 
-def test_someFixture(links_list_fixture):
-    assert links_list_fixture is not None
+
+def test_someFixture():
+    assert links_list is not None
 
 
-@pytest.mark.parametrize("input_arg", ["hi", "bye"])
-def test_someHelper(input_arg):
-    assert some_helper(input_arg) == f"I repeat: {input_arg}"

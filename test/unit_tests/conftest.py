@@ -8,7 +8,8 @@ NOTE: This file is automatically included when running pytest.
 import os
 import sys
 import pytest
-from module import requestLink as RequestLink
+from module import WebScraper as WebScraper
+from module import request_link as RequestLink
 
 # allow the contents to be found automatically as if we were in that directory
 sys.path.append(
@@ -17,6 +18,9 @@ sys.path.append(
 
 
 @pytest.fixture
-def links_list_fixture():
+def setup():
+    url = 'https://igicheva.wordpress.com/all-posts/'
+    scraper = WebScraper(url)
+    scraper.url = url
     links_list = RequestLink('https://igicheva.wordpress.com/all-posts/')[0:2]
-    return links_list
+

@@ -1,20 +1,5 @@
-#!/usr/bin/env python3
-
 import argparse
-
 import module
-
-
-def some_helper(argument):
-    """Some echo-like helper function.
-
-    Returns a string that contains the input argument.
-
-    :param argument: the argument to print in the return string
-    :type argument: any
-    :returns: "I repeat: " followed by the input argument
-    :rtype: str"""
-    return f"I repeat: {argument}"
 
 
 def parse_args():  # pragma: no cover
@@ -35,9 +20,9 @@ def main(args):  # pragma: no cover
     print(f"args: {args}")
     # print(f"RequestLink function result: {module.requestLink(args.link)}")
     scraper = module.WebScraper(args)
-    links = module.requestLink(args.link)
-    scraper.fillData(links)
-    scraper.output()
+    links = module.request_link(args.link)
+    scraper.fill_data(links)
+    scraper.write_to_json()
     print(
         f"WebScraper class result:"
         f"\n - instance: {scraper}"
@@ -47,5 +32,4 @@ def main(args):  # pragma: no cover
 
 if __name__ == "__main__":
     args = parse_args()
-    some_helper(args)
     main(args)
