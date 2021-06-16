@@ -22,5 +22,7 @@ def setup():
     url = 'https://igicheva.wordpress.com/all-posts/'
     scraper = WebScraper(url)
     scraper.url = url
-    links_list = RequestLink('https://igicheva.wordpress.com/all-posts/')[0:2]
+    scraper.articlesList = RequestLink('https://igicheva.wordpress.com/all-posts/')[0:2]
+
+    return scraper
 
