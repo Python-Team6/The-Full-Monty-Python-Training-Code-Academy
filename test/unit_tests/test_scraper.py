@@ -1,3 +1,4 @@
+import module
 from module import *
 from module import request_link as RequestLink
 from bs4 import BeautifulSoup
@@ -12,15 +13,42 @@ def test_request_link(setup_scraper):
     assert test_articles is not None
     assert test_articles[0:2] == setup_scraper.articlesList
 
-def test_concatenate_tags(set, number):
-'''
-def concatenate_tags(content, number):
-    text = ""
-    for span in content[0:number]:
-        text += span.get_text()
 
-    return text
-'''
+def test_concatenate_tags(setup_scraper):
+    test_string = "<span>cat</span> <span>dog</span> <span>eagle</span> <span>tiger</span>"
+    soup = BeautifulSoup(test_string, features='lxml')
+    test_content = soup.findAll("span")
+    text_output = module.concatenate_tags(test_content, 3)
+
+    assert isinstance(type(text_output), type(str))
+    assert text_output is not None
+
+
+def test_get_comments_dict():
+    test_authors = "<b>Tolkien</b> <b>Dog1</b> <b>Eagle1</b> <b>Tiger1</b>"
+    soup = BeautifulSoup(test_authors, features='lxml')
+    test_authors_names = soup.findAll("b")
+
+    test_comments_content = "<div>Test1</div> <div>Test2</div> <div>Test3</div> <div>Test4</div>"
+    soup = BeautifulSoup(test_comments_content, features='lxml')
+    test_comments = soup.findAll("div")
+    test_dict = module.get_comments_dict(test_comments, test_authors_names)
+    test_output = {'Tolkien': ['Test1'], 'Dog1': ['Test2'], 'Eagle1': ['Test3'], 'Tiger1': ['Test4']}
+
+    assert isinstance(type(test_dict), type(dict))
+    assert test_dict is not None
+    assert test_dict == test_output
+
+
+def test_get_most_used_words():
+    test_string = "cat dog eagle tiger bear cat penguin seagull cat"
+    most_occur = module.get_most_used_words(test_string)
+    test_most_occur = ("cat", 3)
+
+    assert isinstance(type(most_occur), type(dict))
+    assert most_occur is not None
+    assert most_occur[0] == test_most_occur
+
 
 def test_request_content(setup_scraper):
     test_soup = request_content(setup_scraper.articlesList[0])
@@ -75,10 +103,8 @@ def test_write_to_json(setup_scraper, setup_articles_data):
 
 
 def test_web_scraper_class(setup_scraper):
-
     assert isinstance(setup_scraper, WebScraper)
 
 
 def test_setup(setup_scraper):
-
     assert setup_scraper.articlesList is not None
