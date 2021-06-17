@@ -7,7 +7,10 @@ NOTE: This file is automatically included when running pytest.
 
 import os
 import sys
+from pathlib import Path
+
 import pytest
+
 from module import WebScraper as WebScraper
 from module import request_link as RequestLink
 
@@ -18,11 +21,24 @@ sys.path.append(
 
 
 @pytest.fixture
-def setup():
-    url = 'https://igicheva.wordpress.com/all-posts/'
-    scraper = WebScraper(url)
-    scraper.url = url
-    scraper.articlesList = RequestLink('https://igicheva.wordpress.com/all-posts/')[0:2]
+def setup_scraper():
+    _url = 'https://igicheva.wordpress.com/all-posts/'
+    scraper = WebScraper(_url)
+    scraper.url = _url
+    scraper.articlesList = RequestLink(_url)[0:2]
 
     return scraper
 
+
+@pytest.fixture
+def setup_test_data():
+    fpath = Path('data/test_data.json').resolve()
+
+    return fpath
+
+
+@pytest.fixture
+def setup_articles_data():
+    fpath = Path('data/articles.json').resolve()
+
+    return fpath
