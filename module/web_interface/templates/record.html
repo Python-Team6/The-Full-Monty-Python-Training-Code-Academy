@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="jumbotron-fluid">
+        <div class="container-fluid">
+            <h1 class="display-4">
+                {% if title %}
+                    {{ title }}
+                {% else %}
+                    Scraped Data
+                {% endif %}
+            </h1>
+
+            <div class="pagination">
+                {{ pagination.info }}
+                {{ pagination.links }}</div>
+
+            <table class="table table-dark" border="1">
+                <thead>
+                <tr>
+                    {% for col in colnames %}
+                        {% if col=="most_used_words" %}
+                            <th class="rowzz">most used words</th>
+                        {% else %}
+                            <th class="rowzz">{{ col }}</th>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for record in records %}
+                    <tr>
+                        {% set  item=content[loop.index - 1+pagination.skip] %}
+                        {% for col in colnames %}
+                            {% if col == "content" %}
+                                <td><a href="{{ url_for('content') }}?send={{ item[col].replace("#","") }}" class="bttn">Съдържание</a>
+                                </td>
+                            {% elif col == "comments" %}
+
+                                <td><a href="{{ url_for('comments') }}?send={{ item[col] }}" class="bttn">Коментари</a>
+                                </td>
+
+                            {% else %}
+                                <td>{{ item[col] }}</td>
+                            {% endif %}
+
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {{ pagination.links }}
+
+        </div>
+    </div>
+{% endblock %}
+
+

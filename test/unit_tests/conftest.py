@@ -14,6 +14,7 @@ import pytest
 from module import WebScraper as WebScraper
 from module import request_link as RequestLink
 
+
 # allow the contents to be found automatically as if we were in that directory
 sys.path.append(
     os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
@@ -42,3 +43,5 @@ def setup_articles_data():
     fpath = Path('data/articles.json').resolve()
 
     return fpath
+
+

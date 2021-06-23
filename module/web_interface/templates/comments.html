@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="jumbotron">
+        <div class=".bg-info.bg-gradient $gradient: linear-gradient(180deg, rgba($white, .15), rgba($white, 0));">
+            <button onclick="goBack()">Go Back</button>
+
+            <script>
+                function goBack() {
+                    window.history.back();
+                }
+            </script>
+            <div id="ai">
+                <table id="hh">
+                </table>
+                <script>
+
+                    let parameters = location.search.substring(1).split("&");
+                    let temp = parameters[0].split("=");
+                    let l = decodeURIComponent(temp[1].replace(/\+/g, " "));
+                    let newStr = l.replace(/'/g, "\"");
+                    let obj = JSON.parse(newStr);
+
+                    for (const [key, value] of Object.entries(obj)) {
+                        document.getElementById("hh").innerHTML += "<tr ><td class='author'>" + key + "</td><td> каза:</td><td>" + value + "</td><br/><br/></tr>";
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

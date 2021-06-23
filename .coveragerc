@@ -4,9 +4,10 @@ branch = True
 cover_pylib = False
 include =
     main.py
-    module/*
+    module/web_scraper.py
 omit =
     test/*
+    module/web_interface/*
 
 [report]
 # Regexes for lines to exclude from consideration
