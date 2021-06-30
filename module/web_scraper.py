@@ -46,8 +46,13 @@ def get_most_used_words(full_content):
     :returns: most_occur
     :rtype: list[tuple]
     """
+    min_length_words = []
     split_it = full_content.split()
-    all_words = collections.Counter(split_it)
+    for word in split_it:
+        if len(word) > 4:
+            min_length_words.append(word)
+    all_words = collections.Counter(min_length_words)
+
     most_occur = all_words.most_common(3)
 
     return most_occur
