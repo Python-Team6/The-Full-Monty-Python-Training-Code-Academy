@@ -1,4 +1,5 @@
 import collections
+import http
 import json
 import re
 import unicodedata
@@ -16,8 +17,12 @@ def request_link(url):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (HTML, like Gecko) '
                       'Chrome/74.0.3729.169 Safari/537.36'}
+
     r = requests.get(url, headers=headers)
     r.raise_for_status()
+
+
+
     soup = BeautifulSoup(r.content, features='lxml')
     links = []
 
@@ -127,7 +132,6 @@ def request_content(url):
 
 class WebScraper:
     def __init__(self, args):
-        self.scraper = WebScraper
         self.url = args
         self.articlesList = []
 
@@ -141,12 +145,12 @@ class WebScraper:
             article = make_suitable_for_json(item)
             self.articlesList.append(article)
 
-    def write_to_json(self):
+    def write_to_json(self,file_name):
         """
         Takes the list of content.
         Uses json to convert the list to json file.
         """
 
-        with open('data/articles.json', 'w', encoding='utf-8') as file:
+        with open(f'data/{file_name}.json', 'w', encoding='utf-8') as file:
             json.dump(self.articlesList, file, ensure_ascii=False, indent=4)
         print("Saved to json file.")

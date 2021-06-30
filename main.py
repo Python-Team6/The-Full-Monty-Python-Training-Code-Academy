@@ -1,5 +1,5 @@
 import argparse
-import module
+import scraper_app
 
 
 def parse_args():  # pragma: no cover
@@ -18,16 +18,10 @@ def parse_args():  # pragma: no cover
 def main(args):  # pragma: no cover
     """Main."""
     print(f"args: {args}")
-    scraper = module.WebScraper(args)
-    links = module.request_link(args.link)
+    scraper = scraper_app.WebScraper(args)
+    links = scraper_app.request_link(args.link)
     scraper.fill_data(links)
-    scraper.write_to_json()
-
-    print(
-        f"WebScraper class result:"
-        f"\n - instance: {scraper}"
-        f"\n - member:   {scraper.scraper}"
-    )
+    scraper.write_to_json("articles")
 
 
 if __name__ == "__main__":

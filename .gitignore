@@ -136,3 +136,4 @@ coverage/
 
 # Data folder
 data/articles.json
+data/test_articles.json

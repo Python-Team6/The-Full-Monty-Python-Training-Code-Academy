@@ -11,8 +11,8 @@ from pathlib import Path
 
 import pytest
 
-from module import WebScraper as WebScraper
-from module import request_link as RequestLink
+from scraper_app import WebScraper as WebScraper
+from scraper_app import request_link as RequestLink
 
 
 # allow the contents to be found automatically as if we were in that directory
@@ -25,8 +25,7 @@ sys.path.append(
 def setup_scraper():
     _url = 'https://igicheva.wordpress.com/all-posts/'
     scraper = WebScraper(_url)
-    scraper.url = _url
-    scraper.articlesList = RequestLink(_url)[0:2]
+    scraper.articlesList = RequestLink(scraper.url)[0:2]
 
     return scraper
 
@@ -43,5 +42,6 @@ def setup_articles_data():
     fpath = Path('data/articles.json').resolve()
 
     return fpath
+
 
 

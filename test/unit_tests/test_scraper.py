@@ -1,7 +1,8 @@
-import module
-from module import *
-from module import request_link as RequestLink
 from bs4 import BeautifulSoup
+
+import scraper_app
+from scraper_app import *
+from scraper_app import request_link as RequestLink
 
 
 def test_request_link(setup_scraper):
@@ -18,7 +19,7 @@ def test_concatenate_tags(setup_scraper):
     test_string = "<span>cat</span> <span>dog</span> <span>eagle</span> <span>tiger</span>"
     soup = BeautifulSoup(test_string, features='lxml')
     test_content = soup.findAll("span")
-    text_output = module.concatenate_tags(test_content, 3)
+    text_output = scraper_app.concatenate_tags(test_content, 3)
 
     assert isinstance(type(text_output), type(str))
     assert text_output is not None
@@ -32,8 +33,11 @@ def test_get_comments_dict():
     test_comments_content = "<div>Test1</div> <div>Test2</div> <div>Test3</div> <div>Test4</div>"
     soup = BeautifulSoup(test_comments_content, features='lxml')
     test_comments = soup.findAll("div")
-    test_dict = module.get_comments_dict(test_comments, test_authors_names)
-    test_output = {'Tolkien': ['Test1'], 'Dog1': ['Test2'], 'Eagle1': ['Test3'], 'Tiger1': ['Test4']}
+    test_dict = scraper_app.get_comments_dict(test_comments, test_authors_names)
+    test_output = [{'Tolkien': 'Test1'},
+                   {'Dog1': 'Test2'},
+                   {'Eagle1': 'Test3'},
+                   {'Tiger1': 'Test4'}]
 
     assert isinstance(type(test_dict), type(dict))
     assert test_dict is not None
@@ -41,9 +45,9 @@ def test_get_comments_dict():
 
 
 def test_get_most_used_words():
-    test_string = "cat dog eagle tiger bear cat penguin seagull cat"
-    most_occur = module.get_most_used_words(test_string)
-    test_most_occur = ("cat", 3)
+    test_string = "cat dog eagle tiger bear tiger penguin seagull tiger"
+    most_occur = scraper_app.get_most_used_words(test_string)
+    test_most_occur = ("tiger", 3)
 
     assert isinstance(type(most_occur), type(dict))
     assert most_occur is not None
@@ -98,7 +102,7 @@ def test_write_to_json(setup_scraper, setup_articles_data):
     with open(path, 'r', encoding='utf-8') as file:
         test_output = json.load(file)
 
-    assert setup_scraper.write_to_json() is not FileNotFoundError
+    assert setup_scraper.write_to_json("test_articles") is not FileNotFoundError
     assert test_output is not None
 
 
