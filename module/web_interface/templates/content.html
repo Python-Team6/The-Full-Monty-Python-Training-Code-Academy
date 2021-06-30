@@ -3,6 +3,10 @@
 {% block content %}
     <div class="jumbotron">
         <div class=".bg-info.bg-gradient $gradient: linear-gradient(180deg, rgba($white, .15), rgba($white, 0));">
+
+            <div id="ai">
+                 <p>"{{ send }}"</p>
+            </div>
             <button onclick="goBack()">Go Back</button>
 
             <script>
@@ -10,14 +14,6 @@
                     window.history.back();
                 }
             </script>
-            <div id="ai">
-                <script>
-                    let parameters = location.search.substring(1).split("&");
-                    let temp = parameters[0].split("=");
-                    l = decodeURIComponent(temp[1].replace(/\+/g, " "));
-                    document.getElementById("ai").innerHTML = l;
-                </script>
-            </div>
         </div>
     </div>
 {% endblock %}

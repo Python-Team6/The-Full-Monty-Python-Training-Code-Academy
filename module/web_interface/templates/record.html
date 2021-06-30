@@ -32,14 +32,26 @@
                         {% set  item=content[loop.index - 1+pagination.skip] %}
                         {% for col in colnames %}
                             {% if col == "content" %}
-                                <td><a href="{{ url_for('content') }}?send={{ item[col].replace("#","") }}" class="bttn">Съдържание</a>
+                                <td style="text-align:center;">
+                                    <form action="{{ url_for('content') }}" method="post" target="_self">
+
+                                        <input type="text" id="send" name="send"
+                                                                         value="{{ item[col] }}"
+                                                                         style="display: none">
+
+                                        <input class="bttn" type="submit" value="Content">
+                                    </form>
                                 </td>
                             {% elif col == "comments" %}
+                                <td style="text-align:center;">
+                                    <form action="{{ url_for('comments') }}" method="post" target="_self">
 
-                                <td><a href="{{ url_for('comments') }}?send={{ item[col] }}" class="bttn">Коментари</a>
-                                </td>
+                                        <input type="text" id="send" name="send" value="{{ item[col] }}"
+                                               style="display: none">
 
-                            {% else %}
+                                        <input class="bttn" type="submit" value="Comments">
+                                    </form>
+                                    {% else %}
                                 <td>{{ item[col] }}</td>
                             {% endif %}
 
