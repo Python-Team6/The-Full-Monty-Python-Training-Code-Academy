@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    fpath = Path('/data/articles.json').resolve()
+    fpath = Path('data/articles.json').resolve()
     df = pd.read_json(fpath)
     df['date'] = pd.to_datetime(df['date']).dt.date
     content_df = df.to_dict('records')

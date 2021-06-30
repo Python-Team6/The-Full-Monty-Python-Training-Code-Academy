@@ -1,5 +1,3 @@
-from bs4 import BeautifulSoup
-
 import scraper_app
 from scraper_app import *
 from scraper_app import request_link as RequestLink
