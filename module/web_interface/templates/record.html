@@ -36,14 +36,14 @@
                                     <form action="{{ url_for('content') }}" method="post" target="_self">
 
                                         <input type="text" id="send1" name="send1"
-                                                                         value="{{ item[col][0] }}"
-                                                                         style="display: none">
+                                               value="{{ item[col][0] }}"
+                                               style="display: none">
                                         <input type="text" id="send2" name="send2"
-                                                                         value="{{ item[col][1] }}"
-                                                                         style="display: none">
+                                               value="{{ item[col][1] }}"
+                                               style="display: none">
                                         <input type="text" id="send3" name="send3"
-                                                                         value="{{ item[col][2] }}"
-                                                                         style="display: none">
+                                               value="{{ item[col][2] }}"
+                                               style="display: none">
 
                                         <input class="bttn" type="submit" value="Content">
                                     </form>
@@ -57,8 +57,17 @@
 
                                         <input class="bttn" type="submit" value="Comments">
                                     </form>
-                                    {% else %}
-                                <td>{{ item[col] }}</td>
+                                </td>
+                            {% elif col == "most_used_words" %}
+                                <td style="text-align:center;">
+                                    {% for key, value in item[col].items() %}
+                                            <p> {{ key }}  {{ value }} </p>
+                                    {% endfor %}
+                                </form>
+                                </td>
+                            {% else %}
+
+                                <td style="text-align:center;">{{ item[col] }}</td>
                             {% endif %}
 
                         {% endfor %}
