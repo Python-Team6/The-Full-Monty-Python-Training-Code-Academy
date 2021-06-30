@@ -2,7 +2,7 @@
 
 Simple, python web scraper that saves the output data in json file.
 
-To run the web scrapper in web apllication:  
+To run the web scrapper and the flask web apllication:  
 ./run_web_scraper.sh
 
 To run tests:  
