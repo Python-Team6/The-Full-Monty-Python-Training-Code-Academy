@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
+    fpath = Path('data/articles.json').resolve()
     df = pd.read_json(fpath)
     df['date'] = pd.to_datetime(df['date']).dt.date
     content_df = df.to_dict('records')
@@ -20,7 +21,8 @@ def index():
 
 @app.route("/content", methods=['GET', 'POST'])
 def content():
-    return render_template('content.html', send=request.form["send"])
+    return render_template('content.html', send1=request.form['send1'], send2=request.form["send2"],
+                           send3=request.form["send3"])
 
 
 @app.route("/comments", methods=['GET', 'POST'])

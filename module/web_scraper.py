@@ -40,6 +40,19 @@ def concatenate_tags(content, number):
     return text
 
 
+def append_tags(content, number):
+    """
+    Takes beautifulSoup content and the number of elements to concatenate.
+    :returns: text
+    :rtype: str
+    """
+    text = []
+    for span in content[0:number]:
+        text.append(span.get_text())
+
+    return text
+
+
 def get_most_used_words(full_content):
     """
     Takes string content. Splits it to a list. Finds the three most common words.
@@ -65,16 +78,12 @@ def get_comments_dict(comments, authors_list):
     :rtype: dict
     """
     j = 0
-    auth_comment_dict = {}
+    auth_comment_dict = []
     for i in comments:
-        auth_comment_dict[i.get_text().replace('\n', '')] = authors_list[j].get_text()
+        auth_comment_dict.append({authors_list[j].get_text(): i.get_text().replace('\n', '')})
         j += 1
 
-    reversed_dict = {}
-    for k, v in auth_comment_dict.items():
-        reversed_dict[v] = reversed_dict.get(v, []) + [k]
-
-    return reversed_dict
+    return auth_comment_dict
 
 
 def make_suitable_for_json(item):
@@ -96,7 +105,7 @@ def make_suitable_for_json(item):
     article = {
         'title': title,
         'date': date,
-        'content': unicodedata.normalize("NFKD", concatenate_tags(content_list, 3)),
+        'content': append_tags(content_list, 3),
         'most_used_words': dict(get_most_used_words(concatenate_tags(content_list, None))),
         'comments': get_comments_dict(comments, authors_list)
     }

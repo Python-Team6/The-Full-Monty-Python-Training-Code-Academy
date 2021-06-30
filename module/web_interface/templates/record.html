@@ -35,8 +35,14 @@
                                 <td style="text-align:center;">
                                     <form action="{{ url_for('content') }}" method="post" target="_self">
 
-                                        <input type="text" id="send" name="send"
-                                                                         value="{{ item[col] }}"
+                                        <input type="text" id="send1" name="send1"
+                                                                         value="{{ item[col][0] }}"
+                                                                         style="display: none">
+                                        <input type="text" id="send2" name="send2"
+                                                                         value="{{ item[col][1] }}"
+                                                                         style="display: none">
+                                        <input type="text" id="send3" name="send3"
+                                                                         value="{{ item[col][2] }}"
                                                                          style="display: none">
 
                                         <input class="bttn" type="submit" value="Content">

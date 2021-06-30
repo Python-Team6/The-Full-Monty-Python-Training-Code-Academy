@@ -6,14 +6,17 @@
             <div>
 
                 <div>
-                    <table id="hh"></table>
+                    <table id="comm"></table>
                     <script>
                         let m = "{{ send }}"
                         let newStr = m.replace(/&#39;/g, "\"");
                         let obj = JSON.parse(newStr);
-
-                        for (const [key, value] of Object.entries(obj)) {
-                            document.getElementById("hh").innerHTML += "<tr ><td class='author'>" + key + "</td><td> каза:</td><td>" + value + "</td><br/><br/></tr>";
+                        console.log(obj);
+                        for (const [d, c] of Object.entries(obj)) {
+                            console.log(c);
+                            for (const [key, value] of Object.entries(c)) {
+                                document.getElementById("comm").innerHTML += "<tr ><td class='author'>" + key + "</td><td> каза:</td><td>" + value + "</td><br/><br/></tr>";
+                            }
                         }
                     </script>
                 </div>
