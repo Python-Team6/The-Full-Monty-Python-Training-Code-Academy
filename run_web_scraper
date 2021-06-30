@@ -6,8 +6,8 @@ python main.py $option $url
 READ=$?
 if [ "$READ" -eq "0" ]
 then
-        export FLASK_APP=module/web_interface/json_to_html
-	      flask run
+	export FLASK_APP=module/web_interface/json_to_html
+	flask run
 else
 	echo "Web Scraper error"
 fi
