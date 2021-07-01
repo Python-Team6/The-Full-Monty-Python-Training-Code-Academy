@@ -1,10 +1,16 @@
-import scraper_app
 from scraper_app import *
-from scraper_app import request_link as RequestLink
 
+
+# from scraper_app import request_link as RequestLink
+
+# def setup(setup_scraper):
+#     _url = 'https://igicheva.wordpress.com/all-posts/'
+#     scraper = WebScraper(_url)
+#     return scraper
+# scraper = setup_scraper
 
 def test_request_link(setup_scraper):
-    test_articles = RequestLink(setup_scraper.url)
+    test_articles = setup_scraper.request_link(setup_scraper.url)
     r_code = requests.get('https://furylabs.net/test')
 
     assert r_code.status_code != 200
@@ -17,7 +23,7 @@ def test_concatenate_tags(setup_scraper):
     test_string = "<span>cat</span> <span>dog</span> <span>eagle</span> <span>tiger</span>"
     soup = BeautifulSoup(test_string, features='lxml')
     test_content = soup.findAll("span")
-    text_output = scraper_app.concatenate_tags(test_content, 3)
+    text_output = setup_scraper.concatenate_tags(test_content, 3)
 
     assert isinstance(type(text_output), type(str))
     assert text_output is not None
@@ -31,7 +37,7 @@ def test_get_comments_dict():
     test_comments_content = "<div>Test1</div> <div>Test2</div> <div>Test3</div> <div>Test4</div>"
     soup = BeautifulSoup(test_comments_content, features='lxml')
     test_comments = soup.findAll("div")
-    test_dict = scraper_app.get_comments_dict(test_comments, test_authors_names)
+    test_dict = setup_scraper.get_comments_dict(test_comments, test_authors_names)
     test_output = [{'Tolkien': 'Test1'},
                    {'Dog1': 'Test2'},
                    {'Eagle1': 'Test3'},
@@ -44,7 +50,7 @@ def test_get_comments_dict():
 
 def test_get_most_used_words():
     test_string = "cat dog eagle tiger bear tiger penguin seagull tiger"
-    most_occur = scraper_app.get_most_used_words(test_string)
+    most_occur = setup_scraper.get_most_used_words(test_string)
     test_most_occur = ("tiger", 3)
 
     assert isinstance(type(most_occur), type(dict))
@@ -53,8 +59,8 @@ def test_get_most_used_words():
 
 
 def test_request_content(setup_scraper):
-    test_soup = request_content(setup_scraper.articlesList[0])
-    test_other_blog_soup = request_content('https://blog.bozho.net/blog/3733')
+    test_soup = setup_scraper.request_content(setup_scraper.articlesList[0])
+    test_other_blog_soup = setup_scraper.request_content('https://blog.bozho.net/blog/3733')
 
     assert isinstance(type(test_soup), type(BeautifulSoup))
     assert test_soup is not None
@@ -63,15 +69,15 @@ def test_request_content(setup_scraper):
 
 
 def test_fill_data(setup_scraper):
-    test_link = setup_scraper.fill_data(RequestLink(setup_scraper.url))
+    test_link = setup_scraper.fill_data(setup_scraper.request_link(setup_scraper.url))
     test_article_list = [test_link]
 
     assert test_article_list is not None
 
 
 def test_make_suitable_for_json(setup_scraper, setup_test_data):
-    test_link = request_content(setup_scraper.articlesList[0])
-    test_article = make_suitable_for_json(test_link)
+    test_link = setup_scraper.request_content(setup_scraper.articlesList[0])
+    test_article = setup_scraper.format_data_for_json(test_link)
     test_title = test_link.find('h1', class_='entry-title').text
     test_date = test_link.find('time', class_='entry-date published').text
     test_content_list = test_link.findAll('span', attrs={'style': 'color:#000000;'})

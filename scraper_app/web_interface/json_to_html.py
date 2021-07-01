@@ -15,7 +15,7 @@ def index():
     content_df = df.to_dict('records')
     column_names = df.columns.values
     page = request.args.get(get_page_parameter(), type=int, default=1)
-    pagination = Pagination(page=page, total=content_df.__len__(), record_name='records', per_page=5)
+    pagination = Pagination(page=page, total=content_df.__len__(), record_name='articles', per_page=5)
     return render_template('record.html', records=df, content=content_df, colnames=column_names, pagination=pagination)
 
 

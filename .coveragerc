@@ -4,11 +4,12 @@ branch = True
 cover_pylib = False
 include =
     main.py
-    module/web_scraper.py
+    scraper_app/web_scraper.py
 omit =
     test/*
-    module/web_interface/*
-
+    scraper_app/web_interface/*
+    venv/*
+    
 [report]
 # Regexes for lines to exclude from consideration
 exclude_lines =

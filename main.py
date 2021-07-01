@@ -19,7 +19,7 @@ def main(args):  # pragma: no cover
     """Main."""
     print(f"args: {args}")
     scraper = scraper_app.WebScraper(args)
-    links = scraper_app.request_link(args.link)
+    links = scraper.request_link(args.link)
     scraper.fill_data(links)
     scraper.write_to_json("articles")
 

@@ -12,7 +12,7 @@ from pathlib import Path
 import pytest
 
 from scraper_app import WebScraper as WebScraper
-from scraper_app import request_link as RequestLink
+# from scraper_app import request_link as RequestLink
 
 
 # allow the contents to be found automatically as if we were in that directory
@@ -25,7 +25,7 @@ sys.path.append(
 def setup_scraper():
     _url = 'https://igicheva.wordpress.com/all-posts/'
     scraper = WebScraper(_url)
-    scraper.articlesList = RequestLink(scraper.url)[0:2]
+    scraper.articlesList = scraper.request_link(scraper.url)[0:2]
 
     return scraper
 
