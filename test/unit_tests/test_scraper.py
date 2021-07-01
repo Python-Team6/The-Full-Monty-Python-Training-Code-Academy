@@ -75,7 +75,7 @@ def test_fill_data(setup_scraper):
     assert test_article_list is not None
 
 
-def test_make_suitable_for_json(setup_scraper, setup_test_data):
+def test_format_data_for_json(setup_scraper, setup_test_data):
     test_link = setup_scraper.request_content(setup_scraper.articlesList[0])
     test_article = setup_scraper.format_data_for_json(test_link)
     test_title = test_link.find('h1', class_='entry-title').text
