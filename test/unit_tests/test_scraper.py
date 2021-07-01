@@ -29,7 +29,7 @@ def test_concatenate_tags(setup_scraper):
     assert text_output is not None
 
 
-def test_get_comments_dict():
+def test_get_comments_dict(setup_scraper):
     test_authors = "<b>Tolkien</b> <b>Dog1</b> <b>Eagle1</b> <b>Tiger1</b>"
     soup = BeautifulSoup(test_authors, features='lxml')
     test_authors_names = soup.findAll("b")
@@ -48,7 +48,7 @@ def test_get_comments_dict():
     assert test_dict == test_output
 
 
-def test_get_most_used_words():
+def test_get_most_used_words(setup_scraper):
     test_string = "cat dog eagle tiger bear tiger penguin seagull tiger"
     most_occur = setup_scraper.get_most_used_words(test_string)
     test_most_occur = ("tiger", 3)
