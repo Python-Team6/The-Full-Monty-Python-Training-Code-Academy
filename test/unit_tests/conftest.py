@@ -32,16 +32,11 @@ def setup_scraper():
 
 @pytest.fixture
 def setup_test_data():
-    fpath = Path('data/test_data.json').resolve()
+    fpath_test_data = Path('data/test_data.json').resolve()
+    fpath_articles = Path('data/articles.json').resolve()
+    test_data_paths = [fpath_test_data, fpath_articles]
 
-    return fpath
-
-
-@pytest.fixture
-def setup_articles_data():
-    fpath = Path('data/articles.json').resolve()
-
-    return fpath
+    return test_data_paths
 
 
 

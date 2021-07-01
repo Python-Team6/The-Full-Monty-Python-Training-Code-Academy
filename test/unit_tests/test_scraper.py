@@ -82,7 +82,7 @@ def test_make_suitable_for_json(setup_scraper, setup_test_data):
     test_date = test_link.find('time', class_='entry-date published').text
     test_content_list = test_link.findAll('span', attrs={'style': 'color:#000000;'})
 
-    path = setup_test_data
+    path = setup_test_data[0]
 
     with open(path, 'r', encoding='utf-8') as file:
         test_output = json.load(file)
@@ -100,8 +100,8 @@ def test_make_suitable_for_json(setup_scraper, setup_test_data):
     assert test_content_list is not None
 
 
-def test_write_to_json(setup_scraper, setup_articles_data):
-    path = setup_articles_data
+def test_write_to_json(setup_scraper, setup_test_data):
+    path = setup_test_data[1]
 
     with open(path, 'r', encoding='utf-8') as file:
         test_output = json.load(file)
